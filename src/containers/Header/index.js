@@ -29,7 +29,7 @@ class Header extends Component {
             currentNav:index
         })
         if (index === 3) {
-            window.open('http://github.com/xiaofengz')
+            window.open('#')
         }
     }
     handleClickNavItem (item) {
