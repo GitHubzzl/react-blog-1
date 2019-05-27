@@ -32,9 +32,7 @@ app.all('*',function (req, res, next) {
    // res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Methods', 'POST, GET');
     if (req.method == 'OPTIONS') {
-        req.method = 'post';
-        next();
-      // res.sendStatus(204);
+        res.sendStatus(204);
     } else {
       next();
     }
