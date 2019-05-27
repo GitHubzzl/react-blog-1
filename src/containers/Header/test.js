@@ -56,17 +56,17 @@ const test = [
             {
                 name:"我的github",
                 icon:"iconfont icon-jianbao",
-                href:"https://github.com/xiaofengz",
+                href:"#",
             },
             {
                 name:"我的简书",
                 icon:"iconfont icon-jianbao",
-                href:"https://www.jianshu.com/u/c61d3264146f",
+                href:"#",
             },
             {
                 name:"我的知乎",
                 icon:"iconfont icon-zhihu",
-                href:"https://www.zhihu.com/people/zhan-xiao-feng-30-92/activities",
+                href:"#",
             },
         ]
     },

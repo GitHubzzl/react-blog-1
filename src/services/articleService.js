@@ -9,8 +9,8 @@ class ArticleService {
     addArticle (data) {
       return xhr({
         method: "post",
-        url: "http://127.0.0.1:9001/article/addArticle",
-        data: {
+        url: "http://localhost:9001/article/addArticle",
+        params: {
           ...data
         }
       });
@@ -19,7 +19,7 @@ class ArticleService {
     pullIndexArticle (data) {
       return xhr({
         method: "post",
-        url: "http://127.0.0.1:9001/article/pullIndexArticle",
+        url: "http://localhost:9001/article/pullIndexArticle",
         data: {
           ...data
         }
@@ -29,7 +29,7 @@ class ArticleService {
     pullUserArticle (data) {
       return xhr({
         method: "post",
-        url: "http://127.0.0.1:9001/article/pullUserArticle",
+        url: "http://localhost:9001/article/pullUserArticle",
         data: {
           ...data
         }
@@ -39,7 +39,7 @@ class ArticleService {
     pullArticle(data) {
       return xhr({
         method: "post",
-        url: "http://127.0.0.1:9001/article/pullArticle",
+        url: "http://localhost:9001/article/pullArticle",
         data: {
           ...data
         }
@@ -50,7 +50,7 @@ class ArticleService {
     deleteArticle(data) {
       return xhr({
         method: "post",
-        url: "http://127.0.0.1:9001/article/deleteArticle",
+        url: "http://localhost:9001/article/deleteArticle",
         data: {
           ...data
         }

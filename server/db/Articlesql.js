@@ -1,5 +1,5 @@
 var ArticleSQL = {  
-    insert:'INSERT INTO article(title,content,type,isPublish,updateTime) VALUES(?,?,?,?,?)', 
+    insert:'INSERT INTO `article` (`title`,`content`,`type`,`isPublish`) VALUES(?,?,?,?)',
     queryAll:'SELECT * FROM article',  
     queryArticle:'SELECT * FROM article WHERE id = ? ',
     updateArticle:'UPDATE article SET title = ?,content = ?,type = ?,isPublish = ?,updateTime = ? WHERE id = ?',

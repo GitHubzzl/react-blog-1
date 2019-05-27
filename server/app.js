@@ -25,17 +25,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   req.cookies=new Cookies(req,res)
 //   next();
 // })
-app.all('*',function (req, res, next) {  
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8088'); 
-  res.header('Access-Control-Allow-Credentials', true); 
-   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');  
-   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS'); 
-    if (req.method == 'OPTIONS') {    
-      res.sendStatus(204); 
+app.all('*',function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8088');
+  res.header('Access-Control-Allow-Credentials', true);
+   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+   // res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'POST, GET');
+    if (req.method == 'OPTIONS') {
+        req.method = 'post';
+        next();
+      // res.sendStatus(204);
     } else {
       next();
     }
-    
+
   });
 
 app.use('/', index);

@@ -20,35 +20,36 @@ var responseJSON = function (res, ret) {
 
 // 发布文章
 router.post('/addArticle', function(req, res, next){
- // 从连接池获取连接 
-var param = req.body.obj; 
-// 建立连接 增加一个用户信息 
-if (param.id) {
+ // 从连接池获取连接
+    // get请求是res.body；post请求是res.query
+    var param = JSON.parse(req.query.obj);
+// 建立连接 增加一个用户信息
+    var updateTime = Date.parse(new Date());
+if (param && param.id) {
     // 存在ID，则为update文章
-    let updateTime = Date.parse(new Date());
     connection.query(ArticleSQL.updateArticle, [param.title,param.content,param.type,param.isPublish,updateTime,param.id], function(err, result) {
-            if(result) {  
-                 responseClient(res, 200, 1, '更新成功')
-            } else {
-                responseClient(res, 400, 2, '更新失败')
-            }
-         // 释放连接  
-        //   connection.release();  
-    
-           });
+        if(result) {
+            responseClient(res, 200, 1, '更新成功')
+        } else {
+            responseClient(res, 400, 2, '更新失败')
+        }
+        // 释放连接
+        //connection.release();
+        });
         } else {
             // 新增文章
-            connection.query(ArticleSQL.insert, [param.title,param.content,param.type,param.isPublish,updateTime], function(err, result) {
-                    if(result) {  
-                         responseClient(res, 200, 1, '添加成功')
-                    } else {
-                        responseClient(res, 400, 2, '添加失败')
-                    }
-                 // 释放连接  
-                //   connection.release();  
-            
-                   });
-        }
+    connection.query(ArticleSQL.insert, [param.title,param.content,param.type,param.isPublish,updateTime], function(err, result) {
+                if(result) {
+                    console.log(result)
+                    responseClient(res, 200, 1, '添加成功')
+                } else {
+                    console.log(result)
+                    responseClient(res, 400, 2, '添加失败')
+                }
+                 // 释放连接
+                //connection.release();
+               });
+            }
 
  });
 

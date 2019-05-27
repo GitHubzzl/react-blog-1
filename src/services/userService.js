@@ -9,7 +9,7 @@ class UserService {
     fetchUserInfo(data) {
     return xhr({
       method: "get",
-      url: "http://127.0.0.1:9001/users/getUserInfo",
+      url: "http://localhost:9001/users/getUserInfo",
       params: {
         ...data
       }
@@ -19,7 +19,7 @@ class UserService {
     login (data) {
       return xhr({
         method: "post",
-        url: "http://127.0.0.1:9001/users/login",
+        url: "http://localhost:9001/users/login",
         data: {
           ...data
         }
@@ -29,7 +29,7 @@ class UserService {
   updateUserInfo (data) {
     return xhr({
       method: "post",
-      url: "http://127.0.0.1:9001/users/updateUserInfo",
+      url: "http://localhost:9001/users/updateUserInfo",
       data: {
         ...data
       }

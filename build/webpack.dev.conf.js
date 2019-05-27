@@ -25,9 +25,9 @@ config.plugins.push(
         chunksSortMode: 'none'
     }),
     new BrowserSyncPlugin({
-        host: '127.0.0.1',
+        host: 'localhost',
         port: 8088,
-        proxy: 'http://127.0.0.1:8088/',
+        proxy: 'http://localhost:8088/',
         logConnections: false,
         notify: false
     }, {

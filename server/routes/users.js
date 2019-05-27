@@ -76,9 +76,9 @@ router.get('/getUserInfo', function(req, res, next){
     // 建立连接 增加一个用户信息 
     connection.query(userSQL.findUser, [user.id], function(err, result) {
         if(result) {  
-            responseClient(res, 200, 1, '添加成功',result)
+            responseClient(res, 200, 1, '查询成功',result)
         } else {
-            responseClient(res, 400, 2, '添加失败')
+            responseClient(res, 400, 2, '查询失败')
         }
         });
  });
