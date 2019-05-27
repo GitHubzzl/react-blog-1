@@ -3,8 +3,7 @@ import { Input } from 'antd';
 import logo from '../../../static/img/logo.png';
 import head from '../../../static/img/head.jpg';
 import './index.less';
-import UserService from 'SERVICES/userService';
-import test from './test';
+import navJson from './nav-json';
 import userService from 'SERVICES/userService'
 const Search = Input.Search;
 
@@ -33,7 +32,8 @@ class Header extends Component {
         }
     }
     handleClickNavItem (item) {
-        item.href && window.open(item.href)
+        // item.href && window.open(item.href)
+        item.href && his.context.router.push(`/personal`)
     }
     // to write article route
     handleOnToWrite () {
@@ -53,7 +53,7 @@ class Header extends Component {
             <img src={logo} title="回到首页" onClick={()=> this.context.router.push(`/`)}/>
             <ul className="nav-ul">
                 {
-                    test && test.map((item, index) => {
+                    navJson && navJson.map((item, index) => {
                         const choose = this.state.currentNav === index ? "nav-li choosed" : "nav-li"
                         return (
                             <li key={index} className={choose} onClick={ this.handleOnClickNav.bind(this, index) }>

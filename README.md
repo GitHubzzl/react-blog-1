@@ -39,7 +39,7 @@ codemirror + react-markdown + highlight(代码高亮)
     npm install/ cnpm i
 
     npm run dev(本地开发)
-    npm run test(测试环境及打包)
+    npm run navJson(测试环境及打包)
     npm run prod(线上环境及打包)
 #### 后端：
     npm start

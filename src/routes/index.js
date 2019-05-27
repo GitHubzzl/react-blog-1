@@ -10,7 +10,7 @@ import PersonalSetting from"CONTAINERS/PersonalSetting"
 
 import ArticleManage from"CONTAINERS/PersonalSetting/ArticleManage"
 import UserManage from"CONTAINERS/PersonalSetting/UserManage"
-
+import Personal from "CONTAINERS/Personal/Article"
 import {
     Router,
     Route,
@@ -30,6 +30,7 @@ const routes = (
         <Route path='articleDetail/:id' component={ArticleDetail} />
         <Route path='writeArticle' component={Editor} />
         <Route path='markdown' component={EditorMarkdown} />
+        <Route path='personal' component={Personal} />
     </Route>
   </Router>
 );

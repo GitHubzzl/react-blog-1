@@ -24,7 +24,7 @@ class Article extends Component {
             this.setState({
                 article:data.data
             })
-            console.log("文章res",data)
+            // console.log("文章res",data)
             // Notification.success({message:data.message})
             // this.context.router.push('/')
         }).catch((err)=>{

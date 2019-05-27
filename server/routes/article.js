@@ -40,10 +40,8 @@ if (param && param.id) {
             // 新增文章
     connection.query(ArticleSQL.insert, [param.title,param.content,param.type,param.isPublish,updateTime], function(err, result) {
                 if(result) {
-                    console.log(result)
                     responseClient(res, 200, 1, '添加成功')
                 } else {
-                    console.log(result)
                     responseClient(res, 400, 2, '添加失败')
                 }
                  // 释放连接
@@ -81,8 +79,7 @@ if (param && param.id) {
                responseClient(res, 400, 2, '拉取失败')
            }
         // 释放连接  
-       //   connection.release();  
-   
+       //   connection.release();
           });
     });
 

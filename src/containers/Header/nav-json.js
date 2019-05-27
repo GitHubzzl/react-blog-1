@@ -1,4 +1,4 @@
-const test = [
+const navJson = [
     {
         name:"文章",
         icon:"iconfont icon-wenzhang",
@@ -16,7 +16,7 @@ const test = [
             {
                 name:"from简书",
                 icon:"iconfont icon-yuan-github",
-                href:"https://www.jianshu.com/u/c61d3264146f",
+                href:"#",
                 children:[]
             },
             {
@@ -70,6 +70,11 @@ const test = [
             },
         ]
     },
+    {
+        name:"个人中心",
+        icon:"iconfont icon-yuan-github",
+        children:[]
+    }
 ]
 
-export default test;
+export default navJson;
