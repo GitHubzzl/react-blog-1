@@ -28,12 +28,11 @@ class Header extends Component {
             currentNav:index
         })
         if (index === 3) {
-           this.context.router.push(`/personal`)
+           this.context.router.push({pathname:`/personal`,query:{id:this.state.userInfo.id}})
         }
     }
     handleClickNavItem (item) {
         // item.href && window.open(item.href)
-        debugger
         item.href && this.context.router.push(`/personal`)
     }
     // to write article route
@@ -51,7 +50,7 @@ class Header extends Component {
         const { userInfo } = this.state
         return (
             <nav className="nav">
-            <img src={logo} title="回到首页" onClick={()=> this.context.router.push(`/`)}/>
+            <img style={{"border-radius": "50%"}} src={logo} title="回到首页" onClick={()=> this.context.router.push(`/`)}/>
             <ul className="nav-ul">
                 {
                     navJson && navJson.map((item, index) => {

@@ -69,9 +69,13 @@ router.get('/addUser', function(req, res, next){
 router.get('/getUserInfo', function(req, res, next){
     // 获取前台页面传过来的参数  
     // console.log("cookies",req.cookies.user,req.cookies['user'],req.cookies)
+    // var user = {
+    //     id:req.cookies.user._id,
+    //     username:req.cookies.user.username,
+    // }
     var user = {
-        id:req.cookies.user._id,
-        username:req.cookies.user.username,
+        id:'001',
+        username:'test',
     }
     // 建立连接 增加一个用户信息 
     connection.query(userSQL.findUser, [user.id], function(err, result) {
