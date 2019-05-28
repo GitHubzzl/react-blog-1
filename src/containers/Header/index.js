@@ -28,12 +28,13 @@ class Header extends Component {
             currentNav:index
         })
         if (index === 3) {
-            window.open('#')
+           this.context.router.push(`/personal`)
         }
     }
     handleClickNavItem (item) {
         // item.href && window.open(item.href)
-        item.href && his.context.router.push(`/personal`)
+        debugger
+        item.href && this.context.router.push(`/personal`)
     }
     // to write article route
     handleOnToWrite () {

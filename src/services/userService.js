@@ -1,6 +1,6 @@
 import xhr from "UTILS/xhr";
 import urls from "CONSTS/urls";
-
+import {prefix} from "CONSTS/consts"
 class UserService {
   constructor() {
       this.url = urls["url"];
@@ -9,7 +9,7 @@ class UserService {
     fetchUserInfo(data) {
     return xhr({
       method: "get",
-      url: "http://localhost:9001/users/getUserInfo",
+      url: prefix +"/users/getUserInfo",
       params: {
         ...data
       }
@@ -19,7 +19,7 @@ class UserService {
     login (data) {
       return xhr({
         method: "post",
-        url: "http://localhost:9001/users/login",
+        url: prefix +"/users/login",
         data: {
           ...data
         }
@@ -29,7 +29,7 @@ class UserService {
   updateUserInfo (data) {
     return xhr({
       method: "post",
-      url: "http://localhost:9001/users/updateUserInfo",
+      url: prefix +"/users/updateUserInfo",
       data: {
         ...data
       }

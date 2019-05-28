@@ -10,3 +10,5 @@ export const DEMO_DATA = {
 };
 
 // 存放redux action常量 
+
+export const prefix = 'blog'

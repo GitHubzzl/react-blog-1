@@ -4,6 +4,10 @@ var express = require('express'),
 	commonPath = require('./commonPath'),
 	app = express();
 
+const proxy = require('./proxy');
+const proxyurl = 'http://localhost:9001/';
+app.use('/blog/*', proxy(proxyurl));
+
 var compiler = webpack(config);
 
 // for highly stable resources

@@ -1,6 +1,6 @@
 import xhr from "UTILS/xhr";
 import urls from "CONSTS/urls";
-
+import {prefix} from "CONSTS/consts"
 class ArticleService {
   constructor() {
       this.url = urls["url"];
@@ -9,7 +9,7 @@ class ArticleService {
     addArticle (data) {
       return xhr({
         method: "post",
-        url: "http://localhost:9001/article/addArticle",
+        url: prefix + "/article/addArticle",
         params: {
           ...data
         }
@@ -19,7 +19,7 @@ class ArticleService {
     pullIndexArticle (data) {
       return xhr({
         method: "post",
-        url: "http://localhost:9001/article/pullIndexArticle",
+        url: prefix + "/article/pullIndexArticle",
         data: {
           ...data
         }
@@ -29,7 +29,7 @@ class ArticleService {
     pullUserArticle (data) {
       return xhr({
         method: "post",
-        url: "http://localhost:9001/article/pullUserArticle",
+        url: prefix + "/article/pullUserArticle",
         data: {
           ...data
         }
@@ -39,7 +39,7 @@ class ArticleService {
     pullArticle(data) {
       return xhr({
         method: "post",
-        url: "http://localhost:9001/article/pullArticle",
+        url: prefix + "/article/pullArticle",
         data: {
           ...data
         }
@@ -50,7 +50,7 @@ class ArticleService {
     deleteArticle(data) {
       return xhr({
         method: "post",
-        url: "http://localhost:9001/article/deleteArticle",
+        url: prefix + "/article/deleteArticle",
         data: {
           ...data
         }

@@ -31,7 +31,7 @@ config.plugins.push(
         logConnections: false,
         notify: false
     }, {
-        reload: false
+        reload: true
     }),
     new webpack.DefinePlugin({
         'process.env': {

@@ -80,9 +80,9 @@ class Article extends Component {
             <div className="article-container">
                 <iframe style={{border:"none",position:"absolute","right":"40px"}} src="https://ghbtns.com/github-btn.html?user=xiaofengz&repo=react-blog&type=star&count=true&size=large" frameBorder="0" scrolling="0" width="160px" height="30px">
                 </iframe>
-                <div className="article-caroucel">
-                    <Tcarousle content={imgArr}/>
-                </div>
+                {/*<div className="article-caroucel" >*/}
+                {/*    <Tcarousle content={imgArr}/>*/}
+                {/*</div>*/}
                 <div className="article-content">
                     <ul className="article-content-ul">
                     {

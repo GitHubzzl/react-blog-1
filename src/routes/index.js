@@ -10,7 +10,7 @@ import PersonalSetting from"CONTAINERS/PersonalSetting"
 
 import ArticleManage from"CONTAINERS/PersonalSetting/ArticleManage"
 import UserManage from"CONTAINERS/PersonalSetting/UserManage"
-import Personal from "CONTAINERS/Personal/Article"
+import Personal from "CONTAINERS/Personal/PersonalArticle"
 import {
     Router,
     Route,
