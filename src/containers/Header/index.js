@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Router, Route, Link } from 'react-router'
 import { Input } from 'antd';
 import logo from '../../../static/img/logo.png';
 import head from '../../../static/img/head.jpg';
@@ -16,9 +17,9 @@ class Header extends Component {
         }
     }
     componentDidMount () {
-        userService.fetchUserInfo().then((res) => {
+        userService.fetchUserInfo({id:''}).then((res) => {
             this.setState({
-                userInfo:res.data[0]
+                userInfo:res.data
             })
         })
     }
@@ -29,6 +30,7 @@ class Header extends Component {
         })
         if (index === 3) {
            this.context.router.push({pathname:`/personal`,query:{id:this.state.userInfo.id}})
+            // this.props.history.push({pathname:`/personal`})
         }
     }
     handleClickNavItem (item) {

@@ -21,7 +21,7 @@ import {
 const routes = (
     <Router history={hashHistory}>
     <Route path="/login" component={Login} />
-    <Route path="/" component={Main}>
+    <Route path="/index" component={Main}>
         <IndexRoute component={Article}/>
         <Route path="personalSetting" component={PersonalSetting} >
             <Route path='userManage' component={UserManage} />

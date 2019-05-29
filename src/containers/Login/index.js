@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { Router, Route, Link } from 'react-router'
 import logo from '../../../static/img/logo.png';
 import {Form, Tabs, Icon, Input,Button,Notification } from "antd";
 import UserService from 'SERVICES/userService';
-import { Link } from "react-router"
 import "./index.less";
 
 const TabPane = Tabs.TabPane;
@@ -31,9 +31,12 @@ class Login extends Component {
             username:values.userName,
             password:values.password,
         }).then((data)=>{
-            console.log("登录成功res",data)
             Notification.success({message:data.message})
-            this.context.router.push('/')
+            // debugger
+            // this.context.router.push('/')
+            // this.context.router.push({pathname:`/personal`,query:{id:data.id}})
+            this.context.router.push({pathname:`/index`,query:{id:data.id}})
+            // this.context.router.push({pathname:`/personal`,query:{id:data.id}})
         }).catch((err)=>{
             console.log("登录失败res",err)
             Notification.error({message:err.message})
@@ -78,7 +81,7 @@ class Login extends Component {
                                     size="large"
                                     prefix={<Icon type="lock"  />}
                                     type="password"
-                                    placeholder="888888"
+                                    placeholder="password"
                                 />
                                 )}
                             </FormItem>

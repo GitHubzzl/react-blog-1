@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Card,Input   } from 'antd';
 import personImg from '../../../../static/img/logo.png';
 import userService from 'SERVICES/userService'
+// import personalService from 'SERVICES/personalService'
 import './index.less'
 
 
@@ -15,9 +16,9 @@ class PersonalArticle extends Component {
         }
     }
     componentDidMount () {
-        userService.fetchUserInfo({id:'001'}).then((res) => {
+        userService.fetchUserInfo({id:this.state.userInfo.id}).then((res) => {
             this.setState({
-                userInfo:res.data[0]
+                userInfo:res.data
             })
         })
     }
@@ -38,7 +39,12 @@ class PersonalArticle extends Component {
         })
     }
     submitPersonalIntro(){
-        
+        userService.updateUserInfo({
+            id:this.state.userInfo.id,
+            personalIntro:this.state.personalIntro
+        }).then(res=>{
+            console.log(res);
+        })
     }
     render() {
         return(
