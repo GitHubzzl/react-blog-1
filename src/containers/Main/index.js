@@ -5,11 +5,10 @@ class Main extends Component {
     constructor(props) {
         super(props)
     }
-    
     render () {
         return (
             <div className="main-body" style={{minWidth:"1280px"}}>
-                <Header />
+                <Header id={this.props.location.query.id}/>
                 {this.props.children}
             </div>
             

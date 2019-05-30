@@ -99,13 +99,18 @@ class Article extends Component {
                                     <Link to={{pathname:`/articleDetail/${item.id}`,params:{id:item.id}}} className="note-title"> { item.title } </Link>
                                     <p className="note-abstract"> { item.content } </p>
                                     <div className="note-footer">
-                                        <a href="" className="footer-type">{ item.type }</a>
-                                        <i className="iconfont icon-yanjing-tianchong"></i>
-                                        <a href="" className="footer-readNum"> { item.readNum || 0} </a>
-                                        <i className="iconfont icon-xiaoxi"></i>
-                                        <a href="" className="footer-commentNum"> { item.commentNum || 0} </a>
-                                        <i className="iconfont icon-aixin"></i>
-                                        <a href="" className="footer-agree"> { item.agree || 0} </a>
+                                        <div>
+                                            <a href="" className="footer-type">{ item.type }</a>
+                                            <i className="iconfont icon-yanjing-tianchong"></i>
+                                            <a href="" className="footer-readNum"> { item.readNum || 0} </a>
+                                            <i className="iconfont icon-xiaoxi"></i>
+                                            <a href="" className="footer-commentNum"> { item.commentNum || 0} </a>
+                                            <i className="iconfont icon-aixin"></i>
+                                            <a href="" className="footer-agree"> { item.agree || 0} </a>
+                                        </div>
+                                        <div>
+                                            <span>作者：{item.author.nickname}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </li>

@@ -4,5 +4,6 @@ var UserSQL = {
     getUserByInfo:'SELECT * FROM User WHERE username = ? AND password = ? ',
     findUser:'SELECT * FROM User WHERE id = ?',
     updateUser:'UPDATE User SET img = ?,nickname = ?,username = ?,sex = ?,personal_intro = ?,personal_website = ? WHERE id = ?',
+    updateUserPersonalIntro:'UPDATE User SET personal_intro = ? WHERE id = ?'
   };
 module.exports = UserSQL;

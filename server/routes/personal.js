@@ -16,4 +16,4 @@ const responseJSON = function (res,ret) {
     }
 }
 
-
+module.exports = router

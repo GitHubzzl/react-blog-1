@@ -32,7 +32,7 @@ class Editor extends Component {
 
         // 文章管理 编辑--跳转 默认显示当前编辑文章
         ArticleService.pullArticle({
-            id:this.props.location.state.id
+            id:this.props.location.query.id
         }).then((data)=>{
             this.setState({
                 // currentArticle:data.data[0],
@@ -57,7 +57,7 @@ class Editor extends Component {
         obj.title = title
         obj.content = content
         obj.type = "react"        // 类型 暂时先写死
-        obj.isPublish = false    //保存
+        obj.is_publish = false    //保存
         ArticleService.addArticle({
             obj
         }).then((data)=>{
@@ -78,7 +78,7 @@ class Editor extends Component {
         obj.title = title
         obj.content = content
         obj.type = "react"        // 类型 暂时先写死
-        obj.isPublish = true
+        obj.is_publish = true
 
         console.log(obj)
     }

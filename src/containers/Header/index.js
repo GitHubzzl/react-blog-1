@@ -16,8 +16,11 @@ class Header extends Component {
             userInfo:{}
         }
     }
+    static defaultProps = {
+        id:''
+    }
     componentDidMount () {
-        userService.fetchUserInfo({id:''}).then((res) => {
+        userService.fetchUserInfo({id:this.props.id}).then((res) => {
             this.setState({
                 userInfo:res.data
             })
@@ -29,13 +32,12 @@ class Header extends Component {
             currentNav:index
         })
         if (index === 3) {
-           this.context.router.push({pathname:`/personal`,query:{id:this.state.userInfo.id}})
-            // this.props.history.push({pathname:`/personal`})
+            this.context.router.push({pathname:`/personal`,query:{id:this.props.id}})
         }
     }
     handleClickNavItem (item) {
         // item.href && window.open(item.href)
-        item.href && this.context.router.push(`/personal`)
+        item.href && this.context.router.push({pathname:`/personal`,query:{id:this.props.id}})
     }
     // to write article route
     handleOnToWrite () {
@@ -52,7 +54,7 @@ class Header extends Component {
         const { userInfo } = this.state
         return (
             <nav className="nav">
-            <img style={{"border-radius": "50%"}} src={logo} title="回到首页" onClick={()=> this.context.router.push(`/`)}/>
+            <img style={{"border-radius": "50%"}} src={logo} title="回到首页" onClick={()=> this.context.router.push({pathname:`/index`,query:{id:this.props.id}})}/>
             <ul className="nav-ul">
                 {
                     navJson && navJson.map((item, index) => {

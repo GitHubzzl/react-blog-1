@@ -32,11 +32,7 @@ class Login extends Component {
             password:values.password,
         }).then((data)=>{
             Notification.success({message:data.message})
-            // debugger
-            // this.context.router.push('/')
-            // this.context.router.push({pathname:`/personal`,query:{id:data.id}})
-            this.context.router.push({pathname:`/index`,query:{id:data.id}})
-            // this.context.router.push({pathname:`/personal`,query:{id:data.id}})
+            this.context.router.push({pathname:`/index`,query:{id:data.data.id}})
         }).catch((err)=>{
             console.log("登录失败res",err)
             Notification.error({message:err.message})
@@ -49,7 +45,7 @@ class Login extends Component {
                 <div className="login-content">
                 <iframe src="https://ghbtns.com/github-btn.html?user=xiaofengz&repo=react-blog&type=star&count=true" frameborder="0" style={{border:"none",position:"absolute",transform:"translateX(270px)"}} scrolling="0" width="170px" height="20px"></iframe>
                     <div className="login-logo">
-                        <img src={logo} title="跳转回首页" onClick={()=>this.context.router.push('/')}/> 
+                        <img src={logo} title="跳转回首页" onClick={()=>this.context.router.push('/index')}/>
                         <span title="跳转回首页">Evan's blog
                         </span>
                     </div>

@@ -40,7 +40,8 @@ router.get('/addUser', function(req, res, next){
         var param = req.body;
     } else{
         var param = req.query || req.params; 
-    } 
+    }
+
     connection.query(userSQL.getUserByInfo,[param.username,param.password],function (err, results){
         if (err){
             throw err
@@ -56,6 +57,7 @@ router.get('/addUser', function(req, res, next){
                             _id:results[0].id,
                             username:results[0].username
                         }
+                        //console.log(results)
                         // req.cookies.set('userInfo',JSON.stringify(user))
                         res.cookie('user', user, { expires: new Date(Date.now() + 900000), httpOnly: true });
                         let response = {
@@ -77,17 +79,15 @@ router.get('/getUserInfo', function(req, res, next){
     //     id:req.cookies.user._id,
     //     username:req.cookies.user.username,
     // }
-    var user = {
-        id:'001',
-        username:'test',
-    }
-    // 建立连接 增加一个用户信息 
-    connection.query(userSQL.findUser, [user.id], function(err, result) {
+    var param = req.query || req.params;
+    // 建立连接 查询用户信息
+    connection.query(userSQL.findUser, [param.id], function(err, result) {
         if(result) {
             let response = {
                 id:result[0].id,
                 img:result[0].img,
-                nickname:result[0].nickname
+                nickname:result[0].nickname,
+                personalIntro:result[0].personal_intro
             }
             responseClient(res, 200, 1, '查询成功',{...response})
         } else {
@@ -100,28 +100,29 @@ router.get('/getUserInfo', function(req, res, next){
 router.post('/updateUserInfo', function(req, res, next){
     // 获取前台页面传过来的参数  
     // console.log("cookies",req.cookies.user,req.cookies['user'],req.cookies)
-    let user = {
-        id:'001',
-        username:'test',
-    }
-    let bodyReq = req.body
-    let obj = {
-        img:'',
-        nickname:'',
-        username:'',
-        sex:'',
-        personalIntro:'',
-        personalWebsite:''
-    };
-    let params = Object.assign({},obj,bodyReq);
-    console.log(params)
-    // 建立连接 增加一个用户信息 
-    connection.query(userSQL.updateUser, [params.img,params.nickname,params.username,params.sex,params.personalIntro,params.personalWebsite,user.id], function(err, result) {
-        if(result) {  
-            responseClient(res, 200, 1, '修改成功',result)
+    let params = req.body;
+    // 建立连接 更新用户信息
+    connection.query(userSQL.updateUserPersonalIntro, [params.personalIntro,params.id], function(err, result) {
+        if(result) {
+            connection.query(userSQL.findUser, [params.id], function(err, result) {
+                if(result) {
+                    let response = {
+                        id:result[0].id,
+                        img:result[0].img,
+                        nickname:result[0].nickname,
+                        personalIntro:result[0].personal_intro
+                    }
+                    responseClient(res, 200, 1, '修改成功',{...response})
+                } else {
+                    responseClient(res, 400, 2, '查询失败')
+                }
+            });
+            //responseClient(res, 200, 1, '修改成功',result)
         } else {
             responseClient(res, 400, 2, '添加失败')
         }
         });
- });
+
+});
+
 module.exports = router;

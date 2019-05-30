@@ -3,7 +3,8 @@ var router = express.Router();
 // 导入MySQL模块
 var mysql = require('mysql');
 var dbConfig = require('../db/DBConfig');
-var ArticleSQL = require('../db/Articlesql');
+var articleSQL = require('../db/Articlesql');
+var userSQL = require('../db/Usersql');
 var responseClient = require('../util/utils.js')
 // 使用DBConfig.js的配置信息创建一个MySQL连接池
 // var pool = mysql.createPool( dbConfig.mysql );
@@ -27,7 +28,7 @@ router.post('/addArticle', function(req, res, next){
     var updateTime = Date.parse(new Date());
 if (param && param.id) {
     // 存在ID，则为update文章
-    connection.query(ArticleSQL.updateArticle, [param.title,param.content,param.type,param.isPublish,updateTime,param.id], function(err, result) {
+    connection.query(articleSQL.updateArticle, [param.title,param.content,param.type,param.is_publish,update_time,param.id], function(err, result) {
         if(result) {
             responseClient(res, 200, 1, '更新成功')
         } else {
@@ -38,7 +39,7 @@ if (param && param.id) {
         });
         } else {
             // 新增文章
-    connection.query(ArticleSQL.insert, [param.title,param.content,param.type,param.isPublish,updateTime], function(err, result) {
+    connection.query(articleSQL.insert, [param.title,param.content,param.type,param.is_publish,update_time], function(err, result) {
                 if(result) {
                     responseClient(res, 200, 1, '添加成功')
                 } else {
@@ -54,27 +55,36 @@ if (param && param.id) {
 // 加载首页文章列表
  router.post('/pullIndexArticle', function(req, res, next){
    // 从article表中获取文章
-   connection.query(ArticleSQL.queryAll,  function(err, result) {
-           if(result) {  
-               let response = []
-               result.map((item,i) => {
-                   response[i] = {
-                    id:result[i].id,
-                    title:result[i].title,
-                    content:result[i].content,
-                    type:result[i].type,
-                    isPublish:result[i].isPublish,
-                    agree:result[i].agree,
-                    commentNum:result[i].commentNum,
-                    readNum:result[i].readNum,
-                    author:{
-                        name:result[i].author,
-                        img:result[i].img,
-                        updateTime:result[i].updateTime
-                    }
-                   }
+   connection.query(articleSQL.queryAll,  function(err, result) {
+           if(result) {
+               let task =[];
+               result.forEach((item,i) => {
+                   let taskItem = new Promise( (resolve, reject) => {
+                       connection.query(userSQL.findUser, [result[i].user_id], function(err, user) {
+                           if(user) {
+                               let author = {
+                                   id:user[0].id,
+                                   img:user[0].img,
+                                   nickname:user[0].nickname,
+                                   personalIntro:user[0].personal_intro
+                               }
+                               let response = {
+                                   id:result[i].id,
+                                   title:result[i].title,
+                                   content:result[i].content,
+                                   type:result[i].type,
+                                   isPublish:result[i].is_publish,
+                                   author:author
+                               }
+                               resolve(response);
+                           }
+                       });
+                   })
+                   task.push(taskItem);
                })
-                responseClient(res, 200, 1, '拉取成功',response)
+               Promise.all(task).then(function (data) {
+                   responseClient(res, 200, 1, '拉取成功',data)
+               })
            } else {
                responseClient(res, 400, 2, '拉取失败')
            }
@@ -83,31 +93,15 @@ if (param && param.id) {
           });
     });
 
-// 加载单篇文章列表
-router.post('/pullArticle', function(req, res, next){
-    // 从article表中获取文章
-    var param = req.body; 
-    
-    connection.query(ArticleSQL.queryArticle, [param.id], function(err, result) {
-            if(result) {  
-                 responseClient(res, 200, 1, '成功',result)
-            } else {
-                responseClient(res, 400, 2, '失败')
-            }
-         // 释放连接  
-        //   connection.release();  
-    
-           });
-     });
 
 
 // 加载当前用户文章列表
 router.post('/pullUserArticle', function(req, res, next){
     // 从article表中获取文章
-    var param = req.body; 
+    var params = req.body;
     
-    connection.query(ArticleSQL.queryAll , function(err, result) {
-            if(result) {  
+    connection.query(articleSQL.queryUserArticle , [params.id],function(err, result) {
+            if(result) {
                  responseClient(res, 200, 1, '获取当前用户文章成功',result)
             } else {
                 responseClient(res, 400, 2, '获取当前用户文章失败')
@@ -124,7 +118,7 @@ router.post('/deleteArticle', function(req, res, next){
     // 从article表中获取文章
     var param = req.body; 
     
-    connection.query(ArticleSQL.deleteArticle ,[param.id], function(err, result) {
+    connection.query(articleSQL.deleteArticle ,[param.id], function(err, result) {
             if(result) {  
                  responseClient(res, 200, 1, '成功',result)
             } else {

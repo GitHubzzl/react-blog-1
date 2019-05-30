@@ -5,6 +5,7 @@ class UserService {
   constructor() {
       this.url = urls["url"];
     }
+
     // 请求用户信息
     fetchUserInfo(data) {
     return xhr({
