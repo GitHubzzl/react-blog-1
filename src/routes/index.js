@@ -27,7 +27,7 @@ const routes = (
             <Route path='/userManage' component={UserManage} />
             <Route path='/articleManage' component={ArticleManage} />
         </Route>
-        <Route path='/articleDetail/:id' component={ArticleDetail} />
+        <Route path='/articleDetail' component={ArticleDetail} />
         <Route path='/writeArticle' component={Editor} />
         <Route path='/markdown' component={EditorMarkdown} />
         <Route path='/personal' component={Personal} />

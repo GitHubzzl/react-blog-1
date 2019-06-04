@@ -9,20 +9,24 @@ class EditorMarkdown extends Component {
 	constructor (props) {
 		super(props)
 		this.state = {
-			value:''
+			content:''
 		}
 	}
 	componentDidMount () {
 	}
 	componentWillReceiveProps (nextProps) {
-		this.props.article.id !== nextProps.article.id && this.setState({
-			article:nextProps.article,
-			value:nextProps.article.content
-		})
+        this.setState({
+            article:nextProps.article,
+            content:nextProps.content
+        })
+		// this.props.article.id !== nextProps.article.id && this.setState({
+		// 	article:nextProps.article,
+		// 	content:nextProps.content
+		// })
 	}
 	updateCode(e) {
 		this.setState({
-			value: e.target.value,
+			content: e.target.value,
 		});
 		this.props.onChangeContent(e.target.value)
 	}
@@ -30,23 +34,27 @@ class EditorMarkdown extends Component {
 		if (e.keyCode == 9) {
 			e.preventDefault();
 			this.setState({
-				value:this.state.value + '    '
+				content:this.state.content + ''
 			})
 		}
 	}
     render() {
-
 		return <div>
 				<div style={{"height":"100vh","width":"50%",float:"left"}}>
-				{/* <CodeMirror value={this.state.value}  onChange={this.updateCode.bind(this)}/> */}
-				<TextArea style={{width:"100%",height:"100%",padding:"40px 40px",fontSize:"16px"}} value={this.state.value} onChange={this.updateCode.bind(this)} onKeyDown={this.checkTab.bind(this)}></TextArea>
+				    {/* <CodeMirror value={this.state.value}  onChange={this.updateCode.bind(this)}/> */}
+                    <TextArea
+                        style={{width:"100%",height:"100%",padding:"40px 40px",fontSize:"16px"}}
+                        value={this.state.content}
+                        onChange={this.updateCode.bind(this)}
+                        onKeyDown={this.checkTab.bind(this)}>
+                    </TextArea>
 				</div>
-				<ReactMarkdown className="result" 
-							source={this.state.value}  
-							renderers={{code: CodeBlock}}
+				<ReactMarkdown
+                    className="result"
+                    source={this.state.content}
+                    renderers={{code: CodeBlock}}
 				/>
-	</div>
-		
+	        </div>
     }
 }
 

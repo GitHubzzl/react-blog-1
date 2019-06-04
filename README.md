@@ -32,5 +32,5 @@ codemirror + react-markdown + highlight(代码高亮)
     npm run navJson(测试环境及打包)
     npm run prod(线上环境及打包)
 #### 后端：
-    npm start
+    npm start , 现安装了nodemon 启动命令： npm run auto
 

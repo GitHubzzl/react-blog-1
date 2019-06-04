@@ -32,7 +32,12 @@ class Header extends Component {
             currentNav:index
         })
         if (index === 3) {
-            this.context.router.push({pathname:`/personal`,query:{id:this.props.id}})
+            if(!this.props.id){
+                this.context.router.push('/login')
+            }else{
+                this.context.router.push({pathname:`/personal`,query:{id:this.props.id}})
+            }
+
         }
     }
     handleClickNavItem (item) {
@@ -41,7 +46,7 @@ class Header extends Component {
     }
     // to write article route
     handleOnToWrite () {
-        this.context.router.push(`/writeArticle`)
+        this.context.router.push({pathname:'/writeArticle',query:{id:this.props.id}})
     }
     jumpToPersonalPage () {
         this.context.router.push(`personalSetting/articleManage`)

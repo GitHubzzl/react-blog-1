@@ -70,7 +70,7 @@ class PersonalArticle extends Component {
         return(
             <div className="personalArticle-container ">
                 <Row>
-                    <Col span={6}>
+                    <Col span={5}>
                         <Card
                             className="card"
                         >
@@ -91,21 +91,21 @@ class PersonalArticle extends Component {
                             </div>
                         </Card>
                     </Col>
-                    <Col span={12}>
+                    <Col span={13}>
                         <div className="article-content ">
                             <ul className="article-content-ul">
                                 {
                                     article && article.map((item,i) => {
                                         return <li key={item.id} className="article-content-li">
                                             <div className="note-content">
-                                                <div className="author">
-                                                    <Avatar  src={item.author ? item.author.img : img1} />
-                                                    <div className="author-info">
-                                                        <a href="">{item.author ? item.author.name : ""}</a>
-                                                        <span>{ item.author ? moment(item.author.time).fromNow() :""}</span>
-                                                    </div>
-                                                </div>
-                                                <Link to={{pathname:`/articleDetail/${item.id}`,params:{id:item.id}}} className="note-title"> { item.title } </Link>
+                                                {/*<div className="author">*/}
+                                                {/*    <Avatar  src={item.author ? item.author.img : img1} />*/}
+                                                {/*    <div className="author-info">*/}
+                                                {/*        <a href="">{item.author ? item.author.name : ""}</a>*/}
+                                                {/*        <span>{ item.author ? moment(item.author.update_time).fromNow() :""}</span>*/}
+                                                {/*    </div>*/}
+                                                {/*</div>*/}
+                                                <Link to={{pathname:`/articleDetail`,query:{id:this.props.location.query.id,articleId:item.id}}} className="note-title"> { item.title } </Link>
                                                 <p className="note-abstract"> { item.content } </p>
                                                 <div className="note-footer">
                                                     <div>

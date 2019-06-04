@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Link } from 'react-router'
 import logo from '../../../static/img/logo.png';
-import {Form, Tabs, Icon, Input,Button,Notification } from "antd";
+import {Form, Tabs, Icon, Input,Button,Notification, message  } from "antd";
 import UserService from 'SERVICES/userService';
 import "./index.less";
 
@@ -31,10 +31,9 @@ class Login extends Component {
             username:values.userName,
             password:values.password,
         }).then((data)=>{
-            Notification.success({message:data.message})
+            message.success(data.message);
             this.context.router.push({pathname:`/index`,query:{id:data.data.id}})
         }).catch((err)=>{
-            console.log("登录失败res",err)
             Notification.error({message:err.message})
         })
     }

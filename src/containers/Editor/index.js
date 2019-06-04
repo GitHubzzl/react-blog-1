@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col,Input,Button,Notification } from 'antd';
+import {Row, Col, Input, Button, Notification, message} from 'antd';
 import Write from 'CONTAINERS/Write';
 import Markdown from './EditorMarkdown';
 import ArticleService from 'SERVICES/ArticleService';
@@ -9,6 +9,7 @@ class Editor extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            currentArticle:'',
             title:'',
             content:'',
             userArticle:[],     //当前用户文章列表，用于左侧显示
@@ -16,71 +17,100 @@ class Editor extends Component {
         }
     }
     componentDidMount () {
-        // 获取左侧当前用户文章列表
+        this.pullUserArticle()
+    }
+    /**
+     * 获取左侧当前用户文章列表
+     */
+    pullUserArticle(){
         ArticleService.pullUserArticle({
+            id:this.props.location.query.id
         }).then((data)=>{
             this.setState({
                 userArticle:data.data
             })
-            console.log("文章res",data)
-            // Notification.success({message:data.message})
-            // this.context.router.push('/')
         }).catch((err)=>{
-            console.log("文章res",err)
-            // Notification.error({message:err.message})
-        })
-
-        // 文章管理 编辑--跳转 默认显示当前编辑文章
-        ArticleService.pullArticle({
-            id:this.props.location.query.id
-        }).then((data)=>{
-            this.setState({
-                // currentArticle:data.data[0],
-                article:data.data[0],
-                title:data.data[0].title,
-                content:data.data[0].content,
-            })
-        }).catch((err)=>{
-            Notification.error({message:err.message})
+           //
         })
     }
-    //保存文章
+
+
+    /**
+     * 新增，编辑文章
+     * @param obj
+     */
+    addArticle(obj){
+        ArticleService.addArticle({
+            ...obj
+        }).then((data)=>{
+            message.success(data.message);
+            this.addNewArticle()
+            this.pullUserArticle()
+        }).catch((err)=>{
+            //
+        })
+    }
+
+    /**
+     * 新建文章
+     */
+    addNewArticle () {
+        this.setState({
+            article:[],
+            currentArticle:"",
+            title:"",
+            content:""
+        })
+    }
+    /**
+     * 详情
+     */
+    detailSelectArticle(item){
+        this.context.router.push({pathname:`/articleDetail`,query:{id:this.props.location.query.id,articleId:item.id}})
+    }
+    /**
+     * 编辑文章
+     */
+    editSelectArticle (item) {
+        this.setState({
+            currentArticle:item.id,
+            title:item.title,
+            content:item.content
+        })
+    }
+    /**
+     * 删除文章
+     */
+    delSelectArticle(item){
+        ArticleService.deleteArticle({
+            id:item.id
+        }).then((data)=>{
+            message.success(data.message);
+            this.pullUserArticle()
+        })
+    }
+    /**
+     * 保存文章
+     */
     saveArticle () {
         const { title,article, content } = this.state
         if (title === '') {
             this.titleInput.focus();
-            Notification.error({message:"请填写文章标题"})
+            message.warning("请填写文章标题")
+            return;
+        }
+        if (content === '') {
+            message.warning("请填写文章内容")
             return;
         }
         let obj = {}
-        obj.id = article.id
+        obj.id = this.state.currentArticle
+        obj.userId = this.props.location.query.id
         obj.title = title
         obj.content = content
         obj.type = "react"        // 类型 暂时先写死
-        obj.is_publish = false    //保存
-        ArticleService.addArticle({
-            obj
-        }).then((data)=>{
-            console.log("登录成功res",data)
-            Notification.success({message:data.message})
-            this.context.router.push('/')
-        }).catch((err)=>{
-            console.log("登录失败res",err)
-            Notification.error({message:err.message})
-        })
-        console.log(obj)
-    }
-    // 发布文章
-    publishArticle () {
-        const { title,article, content } = this.state
-        let obj = {}
-        obj.id = article.id
-        obj.title = title
-        obj.content = content
-        obj.type = "react"        // 类型 暂时先写死
-        obj.is_publish = true
-
-        console.log(obj)
+        obj.is_publish = 2
+        this.addArticle(obj);
     }
     onChangeContent (content) {
         this.setState({
@@ -89,32 +119,6 @@ class Editor extends Component {
     }
     onChangeUserName = (e) => {
         this.setState({ title: e.target.value });
-    }
-    // 选择单篇文章
-    handleOnSelectArticle (item) {
-        this.setState({
-            currentArticle:item.id,
-            title:item.title,
-            content:item.content
-        })
-        // 获取当前文章
-        const articleId = this.props.params.id
-        ArticleService.pullArticle({
-            id:item.id
-        }).then((data)=>{
-            this.setState({
-                article:data.data[0],
-            })
-        }).catch((err)=>{
-            Notification.error({message:err.message})
-        })
-    }
-    // 新建文章
-    addNewArticle () {
-        this.setState({
-            article:[],
-            title:""
-        })
     }
     render () {
         const { title, userArticle,currentArticle } = this.state
@@ -133,11 +137,14 @@ class Editor extends Component {
                                 {  
                                     userArticle && userArticle.map((item, i) => {
                                         return (
-                                            <li key={item.id} className={currentArticle === item.id ? "article-li-select":"article-li"}
-                                            onClick={this.handleOnSelectArticle.bind(this,item)}>
-                                                <span>{item.title}</span>
+                                            <li key={item.id} className={currentArticle === item.id ? "article-li-select":"article-li"}>
+                                                <p>{item.title}</p>
+                                                <p>
+                                                    <span className="red" onClick={this.detailSelectArticle.bind(this,item)}>详情</span>
+                                                    <span className="blue" onClick={this.editSelectArticle.bind(this,item)}>编辑</span>
+                                                    <span className="gray" onClick={this.delSelectArticle.bind(this,item)}>删除</span>
+                                                </p>
                                             </li>
-                                            
                                         )
                                     })
                                 }
@@ -146,7 +153,6 @@ class Editor extends Component {
                     </Col>
                     <Col span={18} className="editArticle-18">
                     <Input type="text" placeholder="请输入文章标题..." style={{width:"50%"}} ref={(input) => this.titleInput = input} value={title} onChange={this.onChangeUserName}/>
-                    {/* <Button style={{float:"right",right:"20px"}} onClick={this.publishArticle.bind(this)}>发布</Button>  */}
                     <Button style={{float:"right",right:"20px"}} onClick={this.saveArticle.bind(this)}>发布</Button> 
                     <Markdown onChangeContent={this.onChangeContent.bind(this)} {...this.state}/>
                     </Col>

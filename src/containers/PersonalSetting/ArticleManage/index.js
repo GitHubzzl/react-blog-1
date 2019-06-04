@@ -21,7 +21,7 @@ class ArticleManage extends Component {
         })
     }
     readArticle (values) {
-        this.context.router.push({pathname:`/articleDetail/${values.id}`,params:{id:values.id}})
+        this.context.router.push({pathname:`/articleDetail`,query:{id:this.props.location.query.id,articleId:values.id}})
         console.log(values)
     }
     editArticle (values) {

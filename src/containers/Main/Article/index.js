@@ -96,7 +96,7 @@ class Article extends Component {
                                             <span>{ item.author ? moment(item.author.time).fromNow() :""}</span>
                                         </div>
                                     </div>
-                                    <Link to={{pathname:`/articleDetail/${item.id}`,params:{id:item.id}}} className="note-title"> { item.title } </Link>
+                                    <Link to={{pathname:`/articleDetail`,query:{id:this.props.location.query.id,articleId:item.id}}} className="note-title"> { item.title } </Link>
                                     <p className="note-abstract"> { item.content } </p>
                                     <div className="note-footer">
                                         <div>

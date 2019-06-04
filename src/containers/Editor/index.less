@@ -3,11 +3,10 @@
     border-top: 1px solid #d9d9d9;
     li {
         position: relative;
-        height: 90px;
         color: #595959;
         background-color: #fff;
         margin-bottom: 0;
-        padding: 15px 10px 15px 60px;
+        padding: 10px 5px 10px 10px;
         -webkit-box-shadow: 0 0 0 1px #d9d9d9;
         box-shadow: 0 0 0 1px #d9d9d9;
         border-left: 10px solid transparent;
@@ -18,12 +17,28 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        span {
+        p{
             height: 30px;
             line-height: 30px;
             font-size: 18px;
-            color: #333;
+            span {
+                height: 30px;
+                line-height: 30px;
+                font-size: 14px;
+                color: #333;
+                margin-right: 15px;
+                &.red{
+                    color:#ff8300;
+                }
+                &.blue{
+                    color:#108ee9;
+                }
+                &.gray{
+                    color:#666666;
+                }
+            }
         }
+
         &:hover {
             background-color: #e6e6e6;
         }

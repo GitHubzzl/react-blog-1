@@ -15,15 +15,14 @@ class ArticleDetail extends Component {
     }
     componentDidMount () {
         // 获取当前文章
-        const articleId = this.props.params.id
         ArticleService.pullArticle({
-            id:articleId
-        }).then((data)=>{
+            id:this.props.location.query.articleId
+        }).then(res=>{
             this.setState({
-                article:data.data[0]
+                article:res.data
             })
         }).catch((err)=>{
-            Notification.error({message:err.message})
+            //
         })
         var btn = document.getElementById('btn');
         var timer = null;
@@ -77,19 +76,17 @@ class ArticleDetail extends Component {
                         <div className="author">
                             <Avatar size={'large'} src={head}/>
                             <div className="info">
-                                <span className="name">
-                                {article.user ? article.user.name : ''}
-                                </span>
-                                <div className="meta">
-                                "2018.02.06 18:08*
-最后编辑于 2018.02.06 18:10
- 字数 15 阅读 2评论 0喜欢 1"
-                                </div>
+                                <span className="name">{article.userName ? article.userName : ''}</span>
+                                <span>最后编辑于 {article.update_time} </span>
+                                <span>字数 15 </span>
+                                <span>阅读 2</span>
+                                <span>评论 0</span>
+                                <span>喜欢 1</span>
                             </div>
                         </div>
                         <div className="show-content">
-                            <ReactMarkdown className="result" 
-                                source={article.content}  
+                            <ReactMarkdown className="result"
+                                source={article.content}
                                 renderers={{code: CodeBlock}}
                             />
                         </div>
