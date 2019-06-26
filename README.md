@@ -1,4 +1,4 @@
-# react-blog dev
+# react-blog master
 
 ## 类似简书的博客网站
 
