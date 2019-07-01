@@ -85,6 +85,7 @@ class Editor extends Component {
         ArticleService.deleteArticle({
             id:item.id
         }).then((data)=>{
+            this.addNewArticle();
             message.success(data.message);
             this.pullUserArticle()
         })

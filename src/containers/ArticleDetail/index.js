@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Avatar,Affix, Button, Tooltip } from 'antd';
+import { Avatar,Affix, Button, Tooltip, Radio, Input  } from 'antd';
 import CodeBlock from "COMPONENTS/CodeBlock";
 import  ReactMarkdown from 'react-markdown';
 import head from '../../../static/img/head.jpg';
+import plImg from '../../../static/img/pl.png';
 import a from './test.js'
 import ArticleService from 'SERVICES/ArticleService';
 import './index.less'
@@ -66,8 +67,11 @@ class ArticleDetail extends Component {
          }, 30); 
          // document.body.scrollTop = document.documentElement.scrollTop = 0;
      }
+     
     render() { 
         const { article } = this.state
+        const { TextArea } = Input;
+
         return ( 
             <div className="articleDetail-container">
                 <div className="post">
@@ -92,6 +96,27 @@ class ArticleDetail extends Component {
                         </div>
                         <div>
                             {/* <span>喜欢</span> */}
+                        </div>
+                        <div className="pl-header clearfix">
+                            <div className="fl">
+                                <span>2条评论</span>
+                            </div>
+                            <div className="fr">
+                                <Radio.Group >
+                                    <Radio.Button value="large">默认排序</Radio.Button>
+                                    <Radio.Button value="small">时间排序</Radio.Button>
+                                </Radio.Group> 
+                            </div>
+                        </div>
+                        <div className="pl">
+                            <Avatar size={'large'} src={head}/>
+                            <div className="pl-textarea">
+                                <TextArea  placeholder="请输入评论" autosize={{ minRows: 6, maxRows: 16 }}/>
+                                <Button className="pl-btn" type="primary">发布评论</Button>
+                            </div>
+                        </div>
+                        <div>
+                            <img src={plImg} />
                         </div>
                     </div>
                 </div>

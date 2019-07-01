@@ -41,6 +41,7 @@ class ArticleManage extends Component {
             id:this.state.currentDelete
         }).then((res) => {
             // 刷新
+            debugger
             Notification.success({message:"删除成功！"})
             articleService.pullUserArticle().then((res) => {
                 this.setState({
